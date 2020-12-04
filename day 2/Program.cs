@@ -10,6 +10,7 @@ namespace day_2
             const string filename = "input.txt";
 
             var parser = new LineParser();
+            // to check Part 1 just create PartOneValidator here
             var validator = new PartTwoValidator();
             var validCounter = 0;
             
