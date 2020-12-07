@@ -18,10 +18,8 @@ namespace day_7
                 reader.ReadLine(line);
             }
 
-            var amount = reader.CountBagHolders();
-
-            Console.WriteLine($"Reader length: {reader.Bags.Count}");
-            Console.WriteLine($"Amount: {amount}");
+            Console.WriteLine($"Part 1: {reader.CountBagHolders()}");
+            Console.WriteLine($"Part 2: {reader.CountBagsContents()}");
         }
     }
 }

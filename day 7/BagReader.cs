@@ -7,7 +7,7 @@ namespace day_7
 {
     public class BagReader
     {
-        public Dictionary<string, IEnumerable<KeyValuePair<string, int>>> Bags { get; set; }
+        private Dictionary<string, IEnumerable<KeyValuePair<string, int>>> Bags { get; set; }
 
         private List<string> AlreadyCounted { get; set; }
         private const string ShinyGoldKey = "shiny gold";
@@ -80,6 +80,19 @@ namespace day_7
             }
             
             return withGoldArr.Count() + CountBagHolders(withGoldArr);
+        }
+
+        public int CountBagsContents(IEnumerable<KeyValuePair<string, int>> bagsToCount = null)
+        {
+            var bags = bagsToCount ?? Bags[ShinyGoldKey];
+            var bagsAmount = 0;
+            foreach (var (name, amount) in bags)
+            {
+                var contents = Bags[name];
+                bagsAmount += amount + amount * CountBagsContents(contents);
+            }
+
+            return bagsAmount;
         }
     }
 }
