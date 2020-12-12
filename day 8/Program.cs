@@ -18,8 +18,11 @@ namespace day_8
                 runner.ParseInstruction(line);
             }
 
-            var result = runner.Run();
+            var result = runner.RunPartOne();
             Console.WriteLine($"Part one result: {result}");
+
+            var partTwo = runner.RunPartTwo();
+            Console.WriteLine($"Part two result: {partTwo}");
         }
     }
 }

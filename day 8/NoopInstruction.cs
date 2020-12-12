@@ -4,5 +4,11 @@ namespace day_8
     {
         public int AccumulatorDelta => 0;
         public int PositionDelta => 1;
+        public int Argument { get; }
+
+        public NoopInstruction(int argument)
+        {
+            Argument = argument;
+        }
     }
 }

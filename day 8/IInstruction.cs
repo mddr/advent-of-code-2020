@@ -4,5 +4,6 @@ namespace day_8
     {
         int AccumulatorDelta { get; }
         int PositionDelta { get; }
+        int Argument { get; }
     }
 }
