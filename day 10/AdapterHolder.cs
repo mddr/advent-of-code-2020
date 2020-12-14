@@ -5,32 +5,42 @@ namespace day_10
 {
     public class AdapterHolder
     {
-        private List<int> Adapters { get; set; }
+        private SortedSet<int> Adapters { get; }
 
         public AdapterHolder()
         {
-            Adapters = new List<int>();
+            Adapters = new SortedSet<int>();
         }
 
         public void ParseAdapter(string line)
             => Adapters.Add(int.Parse(line));
 
 
-        public long CalculateDifferences(int startWith = 0)
+        public long CalculateDifferences()
         {
             var differences = new Dictionary<int, int> {{1, 0}, {2, 0}, {3, 1}};
-            var copy = Adapters.Prepend(startWith);
-            var sortedAdapters = copy.OrderBy(a => a).ToList();
+            var adaptersCopy = Adapters.Prepend(0).ToList();
             
-            for (var i = 0; i < sortedAdapters.Count - 1; i++)
+            for (var i = 0; i < adaptersCopy.Count - 1; i++)
             {
-                var element = sortedAdapters[i];
-                var nextElement = sortedAdapters[i + 1];
+                var element = adaptersCopy[i];
+                var nextElement = adaptersCopy[i + 1];
                 var diff = nextElement - element;
                 differences[diff]++;
             }
 
             return differences[1] * differences[3];
+        }
+
+        public long CalculateDistinct()
+        {
+            var pathsToAdapter = new Dictionary<int, long> {{0, 1}};
+            foreach (var jolt in Adapters)
+                pathsToAdapter[jolt] = pathsToAdapter.GetValueOrDefault(jolt - 1) +
+                                       pathsToAdapter.GetValueOrDefault(jolt - 2) +
+                                       pathsToAdapter.GetValueOrDefault(jolt - 3);
+            
+            return pathsToAdapter[Adapters.Last()];
         }
     }
 }
