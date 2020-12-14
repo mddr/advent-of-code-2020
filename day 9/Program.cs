@@ -18,8 +18,11 @@ namespace day_9
                 cracker.ParseNumber(line);
             }
 
-            var result = cracker.Crack(25);
+            var result = cracker.FindInvalidNumber(25);
             Console.WriteLine($"Result: {result}");
+
+            var weakness = cracker.FindEncryptionWeakness(result);
+            Console.WriteLine($"Weakness: {weakness}");
         }
     }
 }

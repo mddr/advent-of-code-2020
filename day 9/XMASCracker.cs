@@ -19,7 +19,7 @@ namespace day_9
             Numbers.Add(parsed);
         }
 
-        public long Crack(int preambleSize)
+        public long FindInvalidNumber(int preambleSize)
         {
             for (var i = 0; i < Numbers.Count; i++)
             {
@@ -30,6 +30,43 @@ namespace day_9
                     return Numbers[currentIndex];
             }
             throw new Exception("Not found");
+        }
+
+        public long FindEncryptionWeakness(long invalidNumber)
+        {
+            var components = new List<long>();
+
+            var found = false;
+            foreach (var element in Numbers)
+            {
+                var sum = components.Sum();
+                if (sum == invalidNumber)
+                {
+                    found = true;
+                    break;
+                }
+
+                while (sum > invalidNumber)
+                {
+                    components.RemoveAt(0);
+                    sum = components.Sum();
+                }
+                if (sum == invalidNumber)
+                {
+                    found = true;
+                    break;
+                }
+                
+                components.Add(element);
+            }
+
+            if (!found)
+                throw new Exception("Solution not found");
+            if (components.Count == 1) 
+                throw new Exception("Only 1 component");
+            
+            var ordered = components.OrderBy(x => x).ToList();
+            return ordered.First() + ordered.Last();
         }
 
 
